@@ -1,13 +1,23 @@
 import 'package:fabrico_demo/constants.dart';
+import 'package:fabrico_demo/data/models/cart_item_model.dart';
+import 'package:fabrico_demo/data/models/item_model.dart';
 import 'package:fabrico_demo/presentation/widgets/buttons/add_to_cart_button.dart';
 import 'package:fabrico_demo/presentation/widgets/container/item_size_container.dart';
+import 'package:fabrico_demo/provider/cart_provider.dart';
 import 'package:fabrico_demo/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
-class DetailScreen extends StatelessWidget {
-  const DetailScreen({super.key});
+class DetailScreen extends StatefulWidget {
+  const DetailScreen({super.key, required this.item});
+  final ItemModel item;
 
+  @override
+  State<DetailScreen> createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +74,7 @@ class DetailScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Item Name",
+                          widget.item.name,
                           style: GoogleFonts.playfairDisplay(
                               fontSize: 24, fontWeight: FontWeight.bold),
                         ),
@@ -79,7 +89,7 @@ class DetailScreen extends StatelessWidget {
                                 child: ListView(
                                   shrinkWrap: false,
                                   scrollDirection: Axis.horizontal,
-                                  children: ["RED", "BLUE", "GREEN", "YELLOW"]
+                                  children: widget.item.colors
                                       .map((e) => Padding(
                                           padding:
                                               const EdgeInsets.only(right: 8.0),
@@ -104,7 +114,7 @@ class DetailScreen extends StatelessWidget {
                                 child: ListView(
                                   shrinkWrap: false,
                                   scrollDirection: Axis.horizontal,
-                                  children: ["S", "M", "L", "XL", "XXL"]
+                                  children: widget.item.sizes
                                       .map((e) => Padding(
                                             padding: const EdgeInsets.only(
                                                 right: 8.0),
@@ -146,22 +156,30 @@ class DetailScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(20.0),
                     child: Row(
                       children: [
-                        const Text(
-                          "\$123",
-                          style: TextStyle(
+                        Text(
+                          "\$${widget.item.price}",
+                          style: const TextStyle(
                               decoration: TextDecoration.lineThrough,
                               fontSize: 18,
                               color: Colors.grey,
                               fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(width: 10),
-                        const Text(
-                          "\$100",
-                          style: TextStyle(
+                        Text(
+                          "\$${(int.parse(widget.item.price) * (100 - int.parse(widget.item.discount))) / 100}",
+                          style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         Expanded(child: Container()),
-                        const AddToCartButton()
+                        AddToCartButton(onPressed: () {
+                          CartProvider cartProvider =
+                              Provider.of<CartProvider>(context, listen: false);
+
+                          CartItemModel cartItem =
+                              CartItemModel.cartItemModelFromItem(
+                                  widget.item, "1");
+                          cartProvider.addItemToCart(cartItem);
+                        })
                       ],
                     ),
                   )

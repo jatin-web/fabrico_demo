@@ -1,10 +1,12 @@
 import 'package:fabrico_demo/constants.dart';
+import 'package:fabrico_demo/data/models/collection.dart';
 import 'package:fabrico_demo/presentation/widgets/cards/item_card.dart';
 import 'package:fabrico_demo/utils.dart';
 import 'package:flutter/material.dart';
 
 class NewCollectionScreen extends StatelessWidget {
-  const NewCollectionScreen({super.key});
+  const NewCollectionScreen({super.key, required this.collection});
+  final CollectionModel collection;
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +23,16 @@ class NewCollectionScreen extends StatelessWidget {
               // ----------------- Body -----------------
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: ListView.builder(
-                      itemCount: 10,
+                      itemCount: collection.items.length,
                       shrinkWrap: false,
                       itemBuilder: (context, index) {
-                        return const Padding(
-                            padding: EdgeInsets.only(bottom: 20),
-                            child: ItemCard());
+                        return Padding(
+                            padding: const EdgeInsets.only(bottom: 20),
+                            child: ItemCard(
+                              item: collection.items[index],
+                            ));
                       }),
                 ),
               )

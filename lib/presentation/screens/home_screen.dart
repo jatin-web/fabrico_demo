@@ -3,7 +3,6 @@ import 'package:fabrico_demo/presentation/screens/tabs/cart_tab.dart';
 import 'package:fabrico_demo/presentation/screens/tabs/home_tab.dart';
 import 'package:fabrico_demo/presentation/screens/tabs/profile_tab.dart';
 import 'package:fabrico_demo/presentation/screens/tabs/search_tab.dart';
-import 'package:fabrico_demo/presentation/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
@@ -30,11 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: bottomNavigationBar(),
       body: Column(
         children: [
-          // ----------------- App Bar -----------------
-          const CustomAppBar(),
-
-          const SizedBox(height: 20),
-
           // ----------------- Tabs -----------------
           Expanded(
               child: PageView(

@@ -1,5 +1,8 @@
+import 'package:fabrico_demo/data/data.dart';
+import 'package:fabrico_demo/presentation/screens/new_collection_screen.dart';
 import 'package:fabrico_demo/presentation/widgets/container/circular_status_container.dart';
 import 'package:fabrico_demo/presentation/widgets/container/curved_container.dart';
+import 'package:fabrico_demo/presentation/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,21 +27,28 @@ class _HomeTabState extends State<HomeTab> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        // ----------------- App Bar -----------------
+        const CustomAppBar(),
+
+        const SizedBox(height: 20),
+
         // ----------------- Status -----------------
         Container(
           height: 100,
           padding: const EdgeInsets.only(left: 10),
           child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: 10,
+              itemCount: categories.length,
               itemBuilder: (context, index) {
-                return const Padding(
-                    padding: EdgeInsets.only(right: 15),
-                    child: CircularStatusContainer());
+                return Padding(
+                    padding: const EdgeInsets.only(right: 15),
+                    child: CircularStatusContainer(
+                      category: categories[index],
+                    ));
               }),
         ),
 
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
 
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -46,7 +56,7 @@ class _HomeTabState extends State<HomeTab> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // ----------------- Updates -----------------
-              Container(
+              SizedBox(
                 height: 200,
                 child: CarouselSlider.builder(
                     enableAutoSlider: true,
@@ -67,18 +77,27 @@ class _HomeTabState extends State<HomeTab> {
 
               // ----------------- Categories -----------------
               getTitle("New Collection"),
-              Container(
-                height: 200,
-                width: double.infinity,
-                margin: const EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                    color: Colors.teal,
-                    borderRadius: BorderRadius.circular(40)),
-                child: Image.network(
-                    "https://firebasestorage.googleapis.com/v0/b/jatin-developer.appspot.com/o/project_images%2Fbitsearch.webp?alt=media&token=a435c87a-390e-4b88-b0a9-48a87c358ecd",
-                    loadingBuilder: (context, child, loadingProgress) {
-                  return const Center(child: CircularProgressIndicator());
-                }),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              NewCollectionScreen(collection: collection)));
+                },
+                child: Container(
+                  height: 200,
+                  width: double.infinity,
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(
+                      color: Colors.teal,
+                      borderRadius: BorderRadius.circular(40)),
+                  child: Image.network(
+                      "https://firebasestorage.googleapis.com/v0/b/jatin-developer.appspot.com/o/project_images%2Fbitsearch.webp?alt=media&token=a435c87a-390e-4b88-b0a9-48a87c358ecd",
+                      loadingBuilder: (context, child, loadingProgress) {
+                    return const Center(child: CircularProgressIndicator());
+                  }),
+                ),
               )
             ],
           ),

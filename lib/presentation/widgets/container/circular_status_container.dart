@@ -1,7 +1,9 @@
+import 'package:fabrico_demo/data/models/category_model.dart';
 import 'package:flutter/material.dart';
 
 class CircularStatusContainer extends StatelessWidget {
-  const CircularStatusContainer({super.key});
+  const CircularStatusContainer({super.key, required this.category});
+  final Category category;
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +26,10 @@ class CircularStatusContainer extends StatelessWidget {
                 size: 20,
               ),
             )),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Text(
-          "Hello world",
+          category.title,
+          style: const TextStyle(fontWeight: FontWeight.w500),
         )
       ],
     );
