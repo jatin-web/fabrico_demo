@@ -11,33 +11,31 @@ class NewCollectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          color: Colors.grey.withOpacity(0.05),
-          child: Column(
-            children: [
-              // ----------------- App Bar -----------------
-              getAppBar("New Collection"),
-              const SizedBox(height: 20),
+      body: Container(
+        color: Colors.grey.withOpacity(0.05),
+        child: Column(
+          children: [
+            // ----------------- App Bar -----------------
+            getAppBar("New Collection", true, context),
+            const SizedBox(height: 20),
 
-              // ----------------- Body -----------------
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: ListView.builder(
-                      itemCount: collection.items.length,
-                      shrinkWrap: false,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                            padding: const EdgeInsets.only(bottom: 20),
-                            child: ItemCard(
-                              item: collection.items[index],
-                            ));
-                      }),
-                ),
-              )
-            ],
-          ),
+            // ----------------- Body -----------------
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: ListView.builder(
+                    itemCount: collection.items.length,
+                    shrinkWrap: false,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                          padding: const EdgeInsets.only(bottom: 20),
+                          child: ItemCard(
+                            item: collection.items[index],
+                          ));
+                    }),
+              ),
+            )
+          ],
         ),
       ),
     );

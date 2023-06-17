@@ -2,6 +2,7 @@ import 'package:fabrico_demo/constants.dart';
 import 'package:fabrico_demo/data/models/cart_item_model.dart';
 import 'package:fabrico_demo/data/models/item_model.dart';
 import 'package:fabrico_demo/presentation/widgets/buttons/add_to_cart_button.dart';
+import 'package:fabrico_demo/presentation/widgets/container/circular_color_box.dart';
 import 'package:fabrico_demo/presentation/widgets/container/item_size_container.dart';
 import 'package:fabrico_demo/provider/cart_provider.dart';
 import 'package:fabrico_demo/utils.dart';
@@ -18,6 +19,9 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
+  String selectedSize = "M";
+  String selectedColor = "RED";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,9 +97,14 @@ class _DetailScreenState extends State<DetailScreen> {
                                       .map((e) => Padding(
                                           padding:
                                               const EdgeInsets.only(right: 8.0),
-                                          child: CircleAvatar(
-                                            radius: 20,
-                                            backgroundColor: colorMapper(e),
+                                          child: CircularColorBox(
+                                            color: e,
+                                            isSelected: selectedColor == e,
+                                            onTap: () {
+                                              setState(() {
+                                                selectedColor = e;
+                                              });
+                                            },
                                           )))
                                       .toList(),
                                 ),
@@ -118,7 +127,15 @@ class _DetailScreenState extends State<DetailScreen> {
                                       .map((e) => Padding(
                                             padding: const EdgeInsets.only(
                                                 right: 8.0),
-                                            child: ItemSizeContainer(title: e),
+                                            child: ItemSizeContainer(
+                                              title: e,
+                                              isSelected: e == selectedSize,
+                                              onTap : (){
+                                                setState(() {
+                                                  selectedSize = e;
+                                                });
+                                              }
+                                            ),
                                           ))
                                       .toList(),
                                 ),

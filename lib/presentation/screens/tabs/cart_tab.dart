@@ -13,28 +13,45 @@ class CartTab extends StatelessWidget {
     CartProvider cartProvider = Provider.of<CartProvider>(context);
     return Column(
       children: [
-        getAppBar("Cart"),
-        Expanded(
-            child: ListView.builder(
-                itemCount: cartProvider.cartModel.cartItems.length,
-                itemBuilder: (context, index) {
-                  return CartItemCard(
-                      cartItem: cartProvider.cartModel.cartItems[index]);
-                })),
-        Container(
-            margin: EdgeInsets.symmetric(vertical: 10),
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            decoration: BoxDecoration(
-              color: appThemeColor.withOpacity(0.7),
-              borderRadius: BorderRadius.circular(40),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                const Text("Total Price: "),
-                Text("\$${cartProvider.cartModel.totalAmount}")
-              ],
-            )),
+        getAppBar("Cart", false, context),
+        cartProvider.cartModel.cartItems.isEmpty
+            ? const Expanded(
+                child: Center(
+                  child: Text(
+                    "Cart is Empty",
+                    style: TextStyle(color: Colors.grey, fontSize: 20),
+                  ),
+                ),
+              )
+            : Expanded(
+                child: Column(
+                  children: [
+                    Expanded(
+                        child: ListView.builder(
+                            itemCount: cartProvider.cartModel.cartItems.length,
+                            itemBuilder: (context, index) {
+                              return CartItemCard(
+                                  cartItem:
+                                      cartProvider.cartModel.cartItems[index]);
+                            })),
+                    Container(
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 20),
+                        decoration: BoxDecoration(
+                          color: appThemeColor.withOpacity(0.7),
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const Text("Total Price: "),
+                            Text("\$${cartProvider.cartModel.totalAmount}")
+                          ],
+                        )),
+                  ],
+                ),
+              )
       ],
     );
   }
