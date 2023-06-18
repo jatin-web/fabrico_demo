@@ -13,7 +13,14 @@ class SearchTab extends StatefulWidget {
 
 class _SearchTabState extends State<SearchTab> {
   final TextEditingController textEditingController = TextEditingController();
-  List<ItemModel> response = [];
+  List<ItemModel> response = collection.items;
+
+  @override
+  void initState() { 
+    super.initState();
+    
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -29,7 +36,7 @@ class _SearchTabState extends State<SearchTab> {
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: TextFormField(
                   controller: textEditingController,
-                  decoration: InputDecoration(hintText: "Search"),
+                  decoration: const InputDecoration(hintText: "Search"),
                   onChanged: (val) {
                     setState(() {
                       response = collection.items

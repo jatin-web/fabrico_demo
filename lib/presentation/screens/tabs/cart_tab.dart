@@ -35,7 +35,8 @@ class CartTab extends StatelessWidget {
                                       cartProvider.cartModel.cartItems[index]);
                             })),
                     Container(
-                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 10),
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 20),
                         decoration: BoxDecoration(
@@ -45,8 +46,15 @@ class CartTab extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            const Text("Total Price: "),
-                            Text("\$${cartProvider.cartModel.totalAmount}")
+                            const Text(
+                              "Total Amount : ",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            Text(
+                              "\$${cartProvider.cartModel.totalAmount}",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 18),
+                            )
                           ],
                         )),
                   ],

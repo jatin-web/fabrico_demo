@@ -1,3 +1,4 @@
+import 'package:fabrico_demo/constants.dart';
 import 'package:fabrico_demo/data/models/category_model.dart';
 import 'package:flutter/material.dart';
 
@@ -17,14 +18,10 @@ class CircularStatusContainer extends StatelessWidget {
                 color: Colors.transparent,
                 shape: BoxShape.circle,
                 border: Border.all(color: Colors.teal, width: 2)),
-            child: const CircleAvatar(
-              backgroundColor: Colors.teal,
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
               radius: 30,
-              child: Icon(
-                Icons.check,
-                color: Colors.teal,
-                size: 20,
-              ),
+              backgroundImage: NetworkImage(category.image),
             )),
         const SizedBox(height: 10),
         Text(

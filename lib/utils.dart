@@ -1,7 +1,8 @@
 import 'package:fabrico_demo/constants.dart';
 import 'package:flutter/material.dart';
 
-getAppBar(String title, bool? showBackButton, BuildContext context) => Container(
+getAppBar(String title, bool? showBackButton, BuildContext context) =>
+    Container(
       height: 100,
       width: double.infinity,
       padding: const EdgeInsets.only(top: 20),
@@ -15,19 +16,19 @@ getAppBar(String title, bool? showBackButton, BuildContext context) => Container
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
             ),
           ),
-          // if (showBackButton == true)
-          Align(
-            alignment: Alignment.centerLeft,
-            child: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
+          if (showBackButton == true)
+            Align(
+              alignment: Alignment.centerLeft,
+              child: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.black,
+                ),
               ),
-            ),
-          )
+            )
         ],
       ),
     );

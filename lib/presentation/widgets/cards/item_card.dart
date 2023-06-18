@@ -33,8 +33,14 @@ class ItemCard extends StatelessWidget {
                   ),
                   clipBehavior: Clip.hardEdge,
                   height: double.infinity,
-                  child: Image.asset(
-                    "assets/images/clothes_hanged.jpg",
+                  child: Image.network(
+                    item.image,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
                     fit: BoxFit.cover,
                   ),
                 ),

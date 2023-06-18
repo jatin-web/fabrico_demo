@@ -56,22 +56,7 @@ class _HomeTabState extends State<HomeTab> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // ----------------- Updates -----------------
-              SizedBox(
-                height: 200,
-                child: CarouselSlider.builder(
-                    enableAutoSlider: true,
-                    unlimitedMode: true,
-                    autoSliderTransitionTime: const Duration(seconds: 1),
-                    slideIndicator: CircularWaveSlideIndicator(
-                        padding: const EdgeInsets.all(15)),
-                    slideBuilder: (index) {
-                      return const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: CurvedContainer(),
-                      );
-                    },
-                    itemCount: colorsList.length),
-              ),
+              UpdatesContainer(),
 
               const SizedBox(height: 30),
 
@@ -88,15 +73,21 @@ class _HomeTabState extends State<HomeTab> {
                 child: Container(
                   height: 200,
                   width: double.infinity,
+                  clipBehavior: Clip.hardEdge,
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
-                      color: Colors.teal,
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(40)),
                   child: Image.network(
-                      "https://firebasestorage.googleapis.com/v0/b/jatin-developer.appspot.com/o/project_images%2Fbitsearch.webp?alt=media&token=a435c87a-390e-4b88-b0a9-48a87c358ecd",
-                      loadingBuilder: (context, child, loadingProgress) {
-                    return const Center(child: CircularProgressIndicator());
-                  }),
+                    "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
+                    fit: BoxFit.fill,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
+                  ),
                 ),
               )
             ],

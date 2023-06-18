@@ -37,15 +37,11 @@ class _DetailScreenState extends State<DetailScreen> {
       body: Container(
           width: double.infinity,
           height: double.infinity,
-          decoration: const BoxDecoration(
-              color: Colors.teal,
-              image: DecorationImage(
-                  image: AssetImage("assets/images/clothes_hanged.jpg"),
-                  fit: BoxFit.cover),
-              gradient: LinearGradient(
-                  colors: [Colors.red, Colors.black],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter)),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            image: DecorationImage(
+                image: NetworkImage(widget.item.image), fit: BoxFit.cover),
+          ),
           child: Stack(
             children: [
               // ------------------- Overlay Gradient -------------------
@@ -128,14 +124,13 @@ class _DetailScreenState extends State<DetailScreen> {
                                             padding: const EdgeInsets.only(
                                                 right: 8.0),
                                             child: ItemSizeContainer(
-                                              title: e,
-                                              isSelected: e == selectedSize,
-                                              onTap : (){
-                                                setState(() {
-                                                  selectedSize = e;
-                                                });
-                                              }
-                                            ),
+                                                title: e,
+                                                isSelected: e == selectedSize,
+                                                onTap: () {
+                                                  setState(() {
+                                                    selectedSize = e;
+                                                  });
+                                                }),
                                           ))
                                       .toList(),
                                 ),
@@ -188,15 +183,26 @@ class _DetailScreenState extends State<DetailScreen> {
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         Expanded(child: Container()),
-                        AddToCartButton(onPressed: () {
-                          CartProvider cartProvider =
-                              Provider.of<CartProvider>(context, listen: false);
+                        AddToCartButton(
+                          onPressed: () {
+                            CartProvider cartProvider =
+                                Provider.of<CartProvider>(context,
+                                    listen: false);
 
-                          CartItemModel cartItem =
-                              CartItemModel.cartItemModelFromItem(
-                                  widget.item, "1");
-                          cartProvider.addItemToCart(cartItem);
-                        })
+                            CartItemModel cartItem =
+                                CartItemModel.cartItemModelFromItem(
+                                    widget.item, "1");
+                            cartProvider.addItemToCart(cartItem);
+                            setState(() {});
+                          },
+                          isAddedToCart:
+                              Provider.of<CartProvider>(context, listen: false)
+                                      .cartModel
+                                      .cartItems
+                                      .indexWhere((element) =>
+                                          element.id == widget.item.id) >=
+                                  0,
+                        )
                       ],
                     ),
                   )

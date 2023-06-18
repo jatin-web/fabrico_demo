@@ -14,14 +14,14 @@ class CartItemCard extends StatelessWidget {
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(2),
       child: Row(children: [
-        const ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+        ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
             child: SizedBox(
               height: 100,
               width: 120,
               child: Image(
-                image: AssetImage("assets/images/clothes_hanged.jpg"),
-                fit: BoxFit.fill,
+                image: NetworkImage(cartItem.image),
+                fit: BoxFit.cover,
               ),
             )),
         const SizedBox(width: 10),
